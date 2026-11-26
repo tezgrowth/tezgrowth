@@ -34,6 +34,7 @@
       if (mobileBar) {
         const showBar = !hasHero || window.scrollY > 240;
         mobileBar.classList.toggle('is-visible', showBar);
+        document.body.classList.toggle('has-bottom-bar', showBar);
       }
     };
     onScroll();
@@ -160,6 +161,27 @@
     });
   }
 
+  /* 5b. Home Services Category Tabs */
+  function initHomeServiceTabs() {
+    const tabBtns = document.querySelectorAll('[data-home-tab]');
+    const panels = document.querySelectorAll('[data-home-panel]');
+    if (!tabBtns.length || !panels.length) return;
+
+    tabBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-home-tab');
+        tabBtns.forEach((b) => {
+          const active = b === btn;
+          b.classList.toggle('is-active', active);
+          b.setAttribute('aria-selected', String(active));
+        });
+        panels.forEach((p) => {
+          p.hidden = p.getAttribute('data-home-panel') !== target;
+        });
+      });
+    });
+  }
+
   /* 6. Scroll Reveal Animations & Scroll Progress */
   function initScrollProgress() {
     if (document.querySelector('.scroll-progress')) return;
@@ -256,7 +278,7 @@
       </div>
       <div class="modal-footer-sticky">
         <a href="contact.html" id="pm-book-btn" class="btn btn--primary">Book This Plan</a>
-        <a href="#" id="pm-wa-btn" target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp">WhatsApp Enquiry</a>
+        <a href="https://wa.me/918630027341?text=Hi%20TezGrowth%2C%20I%20want%20to%20know%20more%20about%20your%20services" id="pm-wa-btn" target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp">WhatsApp Enquiry</a>
       </div>
     `;
     document.body.appendChild(modal);
@@ -487,7 +509,13 @@
       if (!data.service) { showFieldError(form, 'service', 'Please select a required service.'); valid = false; }
       if (!data.budget) { showFieldError(form, 'budget', 'Please select your monthly budget.'); valid = false; }
 
-      if (!valid) return;
+      if (!valid) {
+        if (statusBox) {
+          statusBox.className = 'form-status is-error';
+          statusBox.textContent = 'Please complete all required fields highlighted above.';
+        }
+        return;
+      }
 
       const submitBtn = form.querySelector('button[type="submit"]');
       const originalText = submitBtn.textContent;
@@ -583,6 +611,25 @@
       .replace(/'/g, '&#39;');
   }
 
+  /* 9. Seamless Auto-Playing Testimonials Marquee */
+  function initTestimonialsVisibility() {
+    const section = document.querySelector('[data-testimonials-section]');
+    if (!section) return;
+    const realCards = section.querySelectorAll('[data-testimonial-card]:not([data-placeholder="true"])');
+    if (!realCards.length) {
+      section.hidden = true;
+      return;
+    }
+    const track = section.querySelector('.testimonials-track');
+    if (track && !track.dataset.cloned) {
+      // Reveal any hidden cards and duplicate once for seamless -50% infinite marquee loop
+      track.querySelectorAll('[hidden]').forEach((el) => el.removeAttribute('hidden'));
+      const clone = track.innerHTML;
+      track.insertAdjacentHTML('beforeend', clone);
+      track.dataset.cloned = 'true';
+    }
+  }
+
   function initYear() {
     document.querySelectorAll('[data-current-year]').forEach((el) => {
       el.textContent = new Date().getFullYear();
@@ -596,10 +643,12 @@
     initMobileNav();
     init3DEffects();
     initPricingTabs();
+    initHomeServiceTabs();
     initPricingModal();
     initReveal();
     initPortfolio();
     initEnquiryForm();
+    initTestimonialsVisibility();
     initYear();
   });
 })();

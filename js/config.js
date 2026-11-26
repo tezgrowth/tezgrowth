@@ -9,7 +9,7 @@ window.TEZGROWTH_CONFIG = {
 
   // Enter your WhatsApp number with country code, digits only (e.g., '918630027341')
   whatsappNumber: '918630027341',
-  defaultWhatsappMessage: 'Hi TezGrowth, I would like to discuss digital marketing and growth services for my business.',
+  defaultWhatsappMessage: 'Hi TezGrowth, I want to know more about your services',
 
   // Analytics & Tracking Placeholders (replace with real IDs when ready)
   googleAnalyticsId: 'G-XXXXXXXXXX',
