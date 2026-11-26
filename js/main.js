@@ -23,12 +23,18 @@
     });
   }
 
-  /* 2. Sticky Glass Header Scroll State */
+  /* 2. Sticky Glass Header & Mobile Bottom Bar Scroll State */
   function initHeaderScroll() {
     const header = document.querySelector('.site-header');
-    if (!header) return;
+    const mobileBar = document.querySelector('.mobile-bottom-bar');
+    const hasHero = Boolean(document.querySelector('.hero'));
+    if (!header && !mobileBar) return;
     const onScroll = () => {
-      header.classList.toggle('is-scrolled', window.scrollY > 12);
+      if (header) header.classList.toggle('is-scrolled', window.scrollY > 12);
+      if (mobileBar) {
+        const showBar = !hasHero || window.scrollY > 240;
+        mobileBar.classList.toggle('is-visible', showBar);
+      }
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
