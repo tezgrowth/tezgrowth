@@ -1878,74 +1878,164 @@ dialog.modal::backdrop {
    Architectural Footer
    ========================================================================== */
 .site-footer {
-  background-color: #06080c;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(0, 102, 255, 0.14) 0%, transparent 44%),
+    radial-gradient(circle at 86% 100%, rgba(255, 107, 0, 0.1) 0%, transparent 44%),
+    #05070b;
   color: #cbd5e1;
-  padding-block: 56px 96px;
-  border-top: 1px solid var(--border-light);
+  padding-block: 52px 96px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--brand-gradient);
+  opacity: 0.85;
 }
 
 @media (min-width: 768px) {
   .site-footer {
-    padding-block: 64px 36px;
+    padding-block: 68px 38px;
   }
 }
 
 .footer-cta-banner {
-  background: linear-gradient(135deg, rgba(0, 102, 255, 0.16) 0%, rgba(0, 214, 108, 0.1) 50%, rgba(255, 107, 0, 0.16) 100%);
+  position: relative;
+  background: linear-gradient(135deg, rgba(20, 27, 45, 0.92) 0%, rgba(12, 16, 26, 0.96) 100%);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: var(--radius-lg);
-  padding: 24px;
-  margin-bottom: 44px;
+  border-radius: var(--radius-xl);
+  padding: 24px 20px;
+  margin-bottom: 40px;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 20px;
+  gap: 18px;
+  box-shadow: 0 24px 55px -16px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.footer-cta-banner > div:last-child {
+  width: 100%;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px !important;
+}
+
+.footer-cta-banner > div:last-child .btn {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .footer-cta-banner {
+    flex-direction: row;
+    align-items: center;
+    padding: 30px 32px;
+    margin-bottom: 48px;
+  }
+  .footer-cta-banner > div:last-child {
+    width: auto;
+    display: flex !important;
+  }
+  .footer-cta-banner > div:last-child .btn {
+    width: auto;
+  }
 }
 
 .footer-grid {
   display: grid;
-  gap: 32px;
-  margin-bottom: 44px;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px 20px;
+  margin-bottom: 36px;
+}
+
+.footer-grid > :first-child {
+  grid-column: 1 / -1;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 @media (min-width: 768px) {
   .footer-grid {
-    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    grid-template-columns: 1.55fr 1fr 1fr 1fr;
+    gap: 36px;
+    margin-bottom: 46px;
+  }
+  .footer-grid > :first-child {
+    grid-column: auto;
+    padding-bottom: 0;
+    border-bottom: none;
   }
 }
 
-.footer-heading {
+.footer-contact-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.footer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  transition: border-color var(--transition), background-color var(--transition), color var(--transition);
+}
+
+.footer-chip:hover {
+  border-color: var(--accent-green);
+  background: rgba(0, 214, 108, 0.1);
   color: #ffffff;
-  font-size: 0.9375rem;
+}
+
+.footer-heading {
+  color: #94a3b8;
+  font-size: 0.75rem;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   margin-bottom: 14px;
 }
 
 .footer-links {
   display: grid;
   gap: 10px;
-  font-size: 0.9375rem;
+  font-size: 0.925rem;
 }
 
 .footer-links a {
-  color: #94a3b8;
-  transition: color var(--transition);
+  display: inline-block;
+  color: #cbd5e1;
+  transition: color var(--transition), transform var(--transition);
 }
 
 .footer-links a:hover {
   color: #ffffff;
+  transform: translateX(3px);
 }
 
 .footer-bottom {
-  padding-top: 24px;
+  padding-top: 22px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
-  font-size: 0.875rem;
+  gap: 12px;
+  font-size: 0.85rem;
   color: #94a3b8;
 }
 
