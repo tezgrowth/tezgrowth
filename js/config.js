@@ -18,8 +18,8 @@ window.TEZGROWTH_CONFIG = {
   // Optional Supabase Integration (for saving contact form leads directly to Supabase)
   // Leave empty during static demo; fill in when connecting Supabase.
   supabase: {
-    url: '',      // e.g. 'https://your-project.supabase.co'
-    anonKey: '',  // e.g. 'your-anon-public-key'
+    url: 'https://sxksdrxmqmfsoiwwngtx.supabase.co',
+    anonKey: 'sb_publishable_aPPV4qX8fm_vnk2beZpPgQ_Oh67p8v7',
     table: 'enquiries'
   }
 };
