@@ -128,6 +128,13 @@ CREATE POLICY "Admin can delete reel videos"
   USING (bucket_id = 'reels' AND auth.role() = 'authenticated');
 
 
+-- Table-level grants (required by Postgres alongside RLS policies)
+GRANT USAGE ON SCHEMA public TO anon, authenticated;
+GRANT INSERT ON public.enquiries TO anon, authenticated;
+GRANT SELECT, UPDATE, DELETE ON public.enquiries TO authenticated;
+GRANT SELECT ON public.reels TO anon, authenticated;
+GRANT INSERT, UPDATE, DELETE ON public.reels TO authenticated;
+
 -- 4. SEED DEMO REEL (only if reels table is currently empty)
 INSERT INTO public.reels (title, source_type, url, poster_url, sort_order, is_active)
 SELECT
