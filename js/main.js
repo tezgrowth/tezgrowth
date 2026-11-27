@@ -200,6 +200,55 @@
     window.addEventListener('scroll', update, { passive: true });
   }
 
+  /* 6a. Hide floating WhatsApp button while Hero CTA is in view */
+  function initWhatsAppFloatVisibility() {
+    const heroCta = document.querySelector('[data-hero-cta]');
+    if (!heroCta || !('IntersectionObserver' in window)) return;
+
+    document.body.classList.add('is-hero-cta-visible');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          document.body.classList.toggle('is-hero-cta-visible', entry.isIntersecting);
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(heroCta);
+  }
+
+  /* 6c. Websites We've Built Showcase */
+  function buildWebsiteCardHtml(site) {
+    const tagsHtml = (site.tags || [])
+      .slice(0, 2)
+      .map((t) => `<span class="website-tag">${escapeHtml(t)}</span>`)
+      .join('');
+    return `
+      <article class="website-card">
+        <div class="website-card-media">
+          <img src="${escapeHtml(site.image)}" alt="${escapeHtml(site.alt || site.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />
+          <div class="website-card-placeholder" style="display:none;">
+            <span>${escapeHtml(site.name)}</span>
+          </div>
+        </div>
+        <div class="website-card-body">
+          <div class="website-card-tags">${tagsHtml}</div>
+          <h3 class="website-card-title">${escapeHtml(site.name)}</h3>
+          <p class="website-card-desc">${escapeHtml(site.description)}</p>
+          <a href="${escapeHtml(site.url)}" target="_blank" rel="noopener noreferrer" class="btn btn--gradient btn--sm btn--block website-visit-btn">Visit Website</a>
+        </div>
+      </article>
+    `;
+  }
+
+  function initWebsitesShowcase() {
+    const sites = window.TEZGROWTH_WEBSITES || [];
+    if (!sites.length) return;
+    document.querySelectorAll('[data-websites-showcase], [data-portfolio-websites]').forEach((container) => {
+      container.innerHTML = sites.map(buildWebsiteCardHtml).join('');
+    });
+  }
+
   function initReveal() {
     const els = document.querySelectorAll('.reveal');
     if (!els.length) return;
@@ -393,10 +442,16 @@
     const modalNote = document.getElementById('modal-project-note');
     const modalClose = document.getElementById('modal-close-btn');
 
+    const websitesWrap = document.getElementById('portfolio-websites-wrap');
+
     function render(category) {
       const filtered = category === 'All'
         ? items
         : items.filter((item) => item.category === category);
+
+      if (websitesWrap) {
+        websitesWrap.hidden = category !== 'Website Projects';
+      }
 
       grid.innerHTML = filtered
         .map(
@@ -463,124 +518,202 @@
     }
   }
 
-  /* 8. Working Enquiry Form */
+  /* 8. Working Enquiry Form (Homepage + Contact Page) */
+  function findPlanForService(serviceVal) {
+    const pricingMap = window.TEZGROWTH_PRICING;
+    if (!pricingMap || !serviceVal) return null;
+    const target = serviceVal.toLowerCase();
+    const plans = Object.values(pricingMap);
+    return (
+      plans.find((p) => (p.ctaService || '').toLowerCase() === target) ||
+      plans.find((p) => (p.title || '').toLowerCase() === target) ||
+      plans.find((p) => target.includes((p.title || '').toLowerCase())) ||
+      null
+    );
+  }
+
+  function updateIncludedScope(serviceVal) {
+    const box = document.getElementById('included-scope-box');
+    const list = document.getElementById('included-scope-list');
+    if (!box || !list) return;
+
+    const plan = findPlanForService(serviceVal);
+    if (!plan || !plan.deliverables || !plan.deliverables.length) {
+      box.hidden = true;
+      list.innerHTML = '';
+      return;
+    }
+
+    list.innerHTML = plan.deliverables
+      .slice(0, 6)
+      .map(
+        (item) =>
+          `<li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>${escapeHtml(item)}</span></li>`
+      )
+      .join('');
+    box.hidden = false;
+  }
+
   function initEnquiryForm() {
-    const form = document.querySelector('[data-enquiry-form]');
-    if (!form) return;
+    const forms = document.querySelectorAll('[data-enquiry-form]');
+    if (!forms.length) return;
 
     const params = new URLSearchParams(window.location.search);
     const serviceParam = params.get('service');
-    const serviceSelect = form.querySelector('[name="service"]');
-    if (serviceParam && serviceSelect) {
-      const match = Array.from(serviceSelect.options).find(
-        (opt) => opt.value.toLowerCase() === serviceParam.toLowerCase()
-      );
-      if (match) serviceSelect.value = match.value;
-    }
 
-    const statusBox = form.querySelector('[data-form-status]');
+    forms.forEach((form) => {
+      const source = form.getAttribute('data-lead-source') || 'contact';
+      const serviceSelect = form.querySelector('[name="service"]');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      clearErrors(form);
-
-      const data = {
-        name: form.querySelector('[name="name"]').value.trim(),
-        business: form.querySelector('[name="business"]').value.trim(),
-        phone: form.querySelector('[name="phone"]').value.trim(),
-        email: form.querySelector('[name="email"]').value.trim(),
-        service: form.querySelector('[name="service"]').value.trim(),
-        budget: form.querySelector('[name="budget"]').value.trim(),
-        message: form.querySelector('[name="message"]').value.trim(),
-        submitted_at: new Date().toISOString()
-      };
-
-      let valid = true;
-      if (!data.name) { showFieldError(form, 'name', 'Please enter your name.'); valid = false; }
-      if (!data.business) { showFieldError(form, 'business', 'Please enter your business name.'); valid = false; }
-      if (!data.phone || data.phone.replace(/\D/g, '').length < 8) {
-        showFieldError(form, 'phone', 'Please enter a valid phone or WhatsApp number.');
-        valid = false;
+      if (serviceParam && serviceSelect) {
+        const match = Array.from(serviceSelect.options).find(
+          (opt) => opt.value.toLowerCase() === serviceParam.toLowerCase()
+        );
+        if (match) serviceSelect.value = match.value;
       }
-      if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-        showFieldError(form, 'email', 'Please enter a valid email address.');
-        valid = false;
-      }
-      if (!data.service) { showFieldError(form, 'service', 'Please select a required service.'); valid = false; }
-      if (!data.budget) { showFieldError(form, 'budget', 'Please select your monthly budget.'); valid = false; }
 
-      if (!valid) {
-        if (statusBox) {
-          statusBox.className = 'form-status is-error';
-          statusBox.textContent = 'Please complete all required fields highlighted above.';
+      if (serviceSelect && form.querySelector('#included-scope-box, #included-scope-list') === null && document.getElementById('included-scope-box')) {
+        updateIncludedScope(serviceSelect.value);
+        serviceSelect.addEventListener('change', () => updateIncludedScope(serviceSelect.value));
+      } else if (serviceSelect && source === 'contact') {
+        updateIncludedScope(serviceSelect.value);
+        serviceSelect.addEventListener('change', () => updateIncludedScope(serviceSelect.value));
+      }
+
+      const statusBox = form.querySelector('[data-form-status]');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        clearErrors(form);
+
+        const hp = form.querySelector('[name="website_hp"]');
+        if (hp && hp.value.trim()) {
+          if (statusBox) {
+            statusBox.className = 'form-status is-success';
+            statusBox.textContent = 'Thank you! Your enquiry has been received.';
+          }
+          form.reset();
+          return;
         }
-        return;
-      }
 
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalText = submitBtn.textContent;
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Submitting...';
+        const data = {
+          name: form.querySelector('[name="name"]').value.trim(),
+          business: form.querySelector('[name="business"]').value.trim(),
+          phone: form.querySelector('[name="phone"]').value.trim(),
+          email: form.querySelector('[name="email"]').value.trim(),
+          service: form.querySelector('[name="service"]').value.trim(),
+          budget: form.querySelector('[name="budget"]').value.trim(),
+          message: form.querySelector('[name="message"]').value.trim(),
+          source,
+          status: 'New',
+          submitted_at: new Date().toISOString()
+        };
 
-      let savedToSupabase = false;
-      if (cfg.supabase && cfg.supabase.url && cfg.supabase.anonKey) {
+        let valid = true;
+        if (!data.name) { showFieldError(form, 'name', 'Please enter your name.'); valid = false; }
+        if (!data.business) { showFieldError(form, 'business', 'Please enter your business name.'); valid = false; }
+        if (!data.phone || data.phone.replace(/\D/g, '').length < 8) {
+          showFieldError(form, 'phone', 'Please enter a valid phone or WhatsApp number.');
+          valid = false;
+        }
+        if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+          showFieldError(form, 'email', 'Please enter a valid email address.');
+          valid = false;
+        }
+        if (!data.service) { showFieldError(form, 'service', 'Please select a required service.'); valid = false; }
+        if (!data.budget) { showFieldError(form, 'budget', 'Please select your monthly budget.'); valid = false; }
+
+        if (!valid) {
+          if (statusBox) {
+            statusBox.className = 'form-status is-error';
+            statusBox.textContent = 'Please complete all required fields highlighted above.';
+          }
+          return;
+        }
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+
+        let savedToSupabase = false;
+        let supabaseError = false;
+        if (cfg.supabase && cfg.supabase.url && cfg.supabase.anonKey) {
+          const table = cfg.supabase.table || 'enquiries';
+          const endpoint = `${cfg.supabase.url}/rest/v1/${table}`;
+          const headers = {
+            'Content-Type': 'application/json',
+            apikey: cfg.supabase.anonKey,
+            Authorization: `Bearer ${cfg.supabase.anonKey}`,
+            Prefer: 'return=minimal'
+          };
+          try {
+            let res = await fetch(endpoint, {
+              method: 'POST',
+              headers,
+              body: JSON.stringify(data)
+            });
+            if (!res.ok && res.status === 400) {
+              // Fallback if source/status columns are not yet migrated
+              const { source: _s, status: _st, ...legacyData } = data;
+              res = await fetch(endpoint, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify(legacyData)
+              });
+            }
+            savedToSupabase = res.ok;
+            if (!res.ok) supabaseError = true;
+          } catch (_) {
+            savedToSupabase = false;
+            supabaseError = true;
+          }
+        }
+
         try {
-          const res = await fetch(`${cfg.supabase.url}/rest/v1/${cfg.supabase.table}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              apikey: cfg.supabase.anonKey,
-              Authorization: `Bearer ${cfg.supabase.anonKey}`,
-              Prefer: 'return=minimal'
-            },
-            body: JSON.stringify(data)
-          });
-          savedToSupabase = res.ok;
-        } catch (_) {
-          savedToSupabase = false;
+          const existing = JSON.parse(localStorage.getItem('tezgrowth_enquiries') || '[]');
+          existing.push(data);
+          localStorage.setItem('tezgrowth_enquiries', JSON.stringify(existing));
+        } catch (_) {}
+
+        const formattedMessage =
+          `New Enquiry for TezGrowth\n` +
+          `Name: ${data.name}\n` +
+          `Business: ${data.business}\n` +
+          `Phone/WhatsApp: ${data.phone}\n` +
+          `Email: ${data.email}\n` +
+          `Required Service: ${data.service}\n` +
+          `Monthly Budget: ${data.budget}\n` +
+          `Message: ${data.message || 'N/A'}`;
+
+        const waUrl = buildWhatsAppUrl(formattedMessage);
+        const mailtoUrl = `mailto:${cfg.email}?subject=${encodeURIComponent(
+          `TezGrowth Enquiry: ${data.service} (${data.business})`
+        )}&body=${encodeURIComponent(formattedMessage)}`;
+
+        if (statusBox) {
+          statusBox.className = savedToSupabase ? 'form-status is-success' : 'form-status is-success';
+          statusBox.innerHTML = `
+            <strong>Thank you, ${escapeHtml(data.name)}!</strong> Your enquiry has been recorded${savedToSupabase ? ' and saved' : ''}.${supabaseError ? ' (Cloud sync pending — use WhatsApp below for instant reply.)' : ''}
+            <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;">
+              <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp btn--sm">Send Instantly via WhatsApp</a>
+              <a href="${mailtoUrl}" class="btn btn--outline btn--sm">Open in Email (${escapeHtml(cfg.email)})</a>
+            </div>
+          `;
         }
-      }
 
-      try {
-        const existing = JSON.parse(localStorage.getItem('tezgrowth_enquiries') || '[]');
-        existing.push(data);
-        localStorage.setItem('tezgrowth_enquiries', JSON.stringify(existing));
-      } catch (_) {}
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'generate_lead', { service: data.service, budget: data.budget });
+        }
+        if (typeof window.fbq === 'function') {
+          window.fbq('track', 'Lead', { content_name: data.service });
+        }
 
-      const formattedMessage =
-        `New Enquiry for TezGrowth\n` +
-        `Name: ${data.name}\n` +
-        `Business: ${data.business}\n` +
-        `Phone/WhatsApp: ${data.phone}\n` +
-        `Email: ${data.email}\n` +
-        `Required Service: ${data.service}\n` +
-        `Monthly Budget: ${data.budget}\n` +
-        `Message: ${data.message || 'N/A'}`;
-
-      const waUrl = buildWhatsAppUrl(formattedMessage);
-      const mailtoUrl = `mailto:${cfg.email}?subject=${encodeURIComponent(
-        `TezGrowth Enquiry: ${data.service} (${data.business})`
-      )}&body=${encodeURIComponent(formattedMessage)}`;
-
-      statusBox.className = 'form-status is-success';
-      statusBox.innerHTML = `
-        <strong>Thank you, ${escapeHtml(data.name)}!</strong> Your enquiry has been recorded${savedToSupabase ? ' and saved' : ''}.
-        <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;">
-          <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp btn--sm">Send Instantly via WhatsApp</a>
-          <a href="${mailtoUrl}" class="btn btn--outline btn--sm">Open in Email (${escapeHtml(cfg.email)})</a>
-        </div>
-      `;
-
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'generate_lead', { service: data.service, budget: data.budget });
-      }
-      if (typeof window.fbq === 'function') {
-        window.fbq('track', 'Lead', { content_name: data.service });
-      }
-
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalText;
-      form.reset();
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        form.reset();
+        updateIncludedScope('');
+      });
     });
   }
 
@@ -640,12 +773,14 @@
     initWhatsAppLinks();
     initScrollProgress();
     initHeaderScroll();
+    initWhatsAppFloatVisibility();
     initMobileNav();
     init3DEffects();
     initPricingTabs();
     initHomeServiceTabs();
     initPricingModal();
     initReveal();
+    initWebsitesShowcase();
     initPortfolio();
     initEnquiryForm();
     initTestimonialsVisibility();

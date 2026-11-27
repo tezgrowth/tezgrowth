@@ -13,6 +13,7 @@ window.TEZGROWTH_PRICING = {
     platforms: 'Instagram, Facebook & YouTube',
     deliverables: [
       'Full account management across Instagram, Facebook & YouTube',
+      'Meta Ads management included (campaign setup, targeting & optimization)',
       '8 edited Reels / Shorts per month (using client-provided or planned clips)',
       '8 custom-designed Graphic Posts / Carousels',
       '12 engaging Stories per month',
@@ -26,7 +27,7 @@ window.TEZGROWTH_PRICING = {
       'Approval workflow via WhatsApp before publishing'
     ],
     notes: [
-      'Ad spend is not included (add Meta Ads Management separately if needed).',
+      'Ad budget is separate and paid directly to Meta (Meta Ads management fee is included).',
       'Monthly deliverables are fixed and unused deliverables do not roll over.'
     ],
     ctaService: 'SOCIAL STARTER (₹9,999/mo)'
@@ -218,10 +219,14 @@ window.TEZGROWTH_PRICING = {
       'Full Instagram, Facebook & YouTube management deliverables together',
       'Reels & YouTube Shorts repurposing & optimization',
       'Graphic posts, stories, thumbnails & YouTube SEO',
-      'Unified monthly publishing calendar'
+      'Unified monthly publishing calendar',
+      'Meta Ads management not included, add from ₹3,999/month'
     ],
     workflow: ['Record once, distribute across all 3 platforms with native formatting.'],
-    notes: ['Best value social-only bundle before adding Meta Ads or physical shoots.'],
+    notes: [
+      'Meta Ads management not included, add from ₹3,999/month.',
+      'Best value social-only bundle before adding Meta Ads or physical shoots.'
+    ],
     ctaService: 'IG + FB + YouTube Bundle (₹7,999/mo)'
   },
   'reel-editing': {

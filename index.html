@@ -52,7 +52,7 @@
   </script>
   -->
 </head>
-<body>
+<body class="is-hero-cta-visible">
   <!-- Floating Glassmorphic Header -->
   <header class="site-header">
     <div class="header-glass">
@@ -112,29 +112,37 @@
     <section class="hero">
       <div class="container hero-grid">
         <div>
-          <span class="eyebrow">Creator-led &bull; 800K+ &bull; Since 2018</span>
-          <h1 class="hero-title">Turn Your Digital Presence Into <span class="accent">Growth.</span></h1>
+          <span class="eyebrow eyebrow--hero">Free Consultation &bull; 24h Onboarding</span>
+          <h1 class="hero-title">Reels, Ads &amp; Websites That Bring You <span class="accent">Customers.</span></h1>
           <p class="hero-desc">
-            Social media, video &amp; AI ads, Meta Ads, and high-converting websites—built under one roof.
+            Reels from ₹499. Meta Ads from ₹3,999/month.
           </p>
-          <div class="hero-cta-group">
-            <a href="https://wa.me/918630027341?text=Hi%20TezGrowth%2C%20I%20want%20to%20know%20more%20about%20your%20services" data-whatsapp-link target="_blank" rel="noopener noreferrer" class="btn btn--gradient">Chat on WhatsApp</a>
+          <div class="hero-cta-group" data-hero-cta>
+            <a href="https://wa.me/918630027341?text=Hi%20TezGrowth%2C%20I%20want%20to%20know%20more%20about%20your%20services" data-whatsapp-link target="_blank" rel="noopener noreferrer" class="btn btn--gradient hero-wa-btn">Get Free Consultation on WhatsApp</a>
             <a href="pricing.html" class="btn btn--outline">View Pricing</a>
           </div>
           <div class="hero-stats" aria-label="TezGrowth Key Metrics">
             <div class="hero-stat">
               <div class="hero-stat-num">800K+</div>
-              <div class="hero-stat-label">YouTube subscribers</div>
+              <div class="hero-stat-label">YouTube<br />Subscribers</div>
             </div>
             <div class="hero-stat">
               <div class="hero-stat-num">8+</div>
-              <div class="hero-stat-label">years in ads &amp; content</div>
+              <div class="hero-stat-label">Years in Ads<br />&amp; Content</div>
             </div>
             <div class="hero-stat">
-              <div class="hero-stat-num">18K+</div>
-              <div class="hero-stat-label">on Instagram</div>
+              <div class="hero-stat-num">24h</div>
+              <div class="hero-stat-label">Fast<br />Onboarding</div>
             </div>
           </div>
+          <a href="about.html" class="hero-founder-row" aria-label="About founder Vipu Gamer">
+            <span class="hero-founder-avatar-wrap">
+              <img src="assets/founder.jpg" alt="Vipu Gamer" class="hero-founder-avatar" width="36" height="36" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />
+              <span class="hero-founder-fallback" style="display:none;" aria-hidden="true">VG</span>
+            </span>
+            <span class="hero-founder-text">Founded by <strong>Vipu Gamer</strong> &middot; 800K+ YouTube</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
           <div class="hero-social-row">
             <a href="https://instagram.com/thetezgrowth" target="_blank" rel="noopener noreferrer" class="social-icon-btn social-icon-btn--instagram" aria-label="Follow TezGrowth on Instagram (@thetezgrowth)">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
@@ -195,303 +203,45 @@
       </div>
     </section>
 
-    <!-- Services & Individual Pricing (Compact Tabbed View) -->
-    <section id="services" class="section">
+    <!-- Reels Section (Directly Below Hero) -->
+    <section id="reels-section" class="section reels-section">
       <div class="container">
-        <div class="section-header" style="margin-bottom: 24px;">
-          <span class="eyebrow">Services &amp; Pricing</span>
-          <h2 class="section-title">Everything You Need Under One Roof</h2>
-          <p class="section-subtitle">
-            Switch tabs to explore Social Media, Video &amp; AI Ads, Meta Ads, and Websites—or view all 19 plans on <a href="pricing.html" style="color: var(--green); font-weight: 700;">Pricing &rarr;</a>
-          </p>
-        </div>
-
-        <div class="pricing-tabs" role="tablist" aria-label="Service Categories">
-          <button type="button" class="pricing-tab-btn is-active" role="tab" aria-selected="true" data-home-tab="social">Social Media</button>
-          <button type="button" class="pricing-tab-btn" role="tab" aria-selected="false" data-home-tab="video">Video &amp; AI Ads</button>
-          <button type="button" class="pricing-tab-btn" role="tab" aria-selected="false" data-home-tab="ads">Meta Ads</button>
-          <button type="button" class="pricing-tab-btn" role="tab" aria-selected="false" data-home-tab="web">Websites</button>
-        </div>
-
-        <!-- Tab 1: Social Media -->
-        <div data-home-panel="social">
-          <div class="grid grid--3 reveal">
-          <!-- Instagram Management -->
-          <article class="card">
-            <div class="card-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            </div>
-            <h3 class="card-title">Instagram Management</h3>
-            <div class="card-price">₹3,499<span>/month</span></div>
-            <ul class="check-list">
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>8 edited reels per month using client-provided footage</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>8 professional photo posts/designs</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>12 Instagram stories</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Captions and hashtags</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Content scheduling and publishing</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Instagram profile optimization</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Basic account management</li>
-            </ul>
-            <div style="display: grid; gap: 10px;">
-              <a href="contact.html?service=Instagram%20Management" class="btn btn--primary btn--block">Get Started</a>
-              <a href="services.html#instagram-management" class="btn btn--outline btn--sm btn--block">View Detailed Deliverables</a>
-            </div>
-          </article>
-
-          <!-- Facebook Management -->
-          <article class="card">
-            <div class="card-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-            </div>
-            <h3 class="card-title">Facebook Management</h3>
-            <div class="card-price">₹2,499<span>/month</span></div>
-            <ul class="check-list">
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>8 posts per month</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>4 edited promotional reels using client-provided footage</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>12 stories</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Captions and scheduling</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Facebook page optimization</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Basic page management</li>
-            </ul>
-            <div style="display: grid; gap: 10px;">
-              <a href="contact.html?service=Facebook%20Management" class="btn btn--primary btn--block">Get Started</a>
-              <a href="services.html#facebook-management" class="btn btn--outline btn--sm btn--block">View Detailed Deliverables</a>
-            </div>
-          </article>
-
-          <!-- YouTube Management -->
-          <article class="card">
-            <div class="card-icon card-icon--purple">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
-            </div>
-            <h3 class="card-title">YouTube Management</h3>
-            <div class="card-price">₹3,499<span>/month</span></div>
-            <ul class="check-list">
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>8 edited YouTube Shorts using client-provided footage</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Upload &amp; optimization of 2 client-provided edited long-form videos</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Titles, descriptions and tags</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>2 custom thumbnails</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Upload scheduling</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Channel optimization</li>
-            </ul>
-            <div style="display: grid; gap: 10px;">
-              <a href="contact.html?service=YouTube%20Management" class="btn btn--primary btn--block">Get Started</a>
-              <a href="services.html#youtube-management" class="btn btn--outline btn--sm btn--block">View Detailed Deliverables</a>
-            </div>
-          </article>
-        </div>
-
-        <!-- Combined Social Media Management -->
-        <div style="margin-top: 36px;">
-          <h3 style="font-size: 1.375rem; font-weight: 700; margin-bottom: 18px;">Combined Social Media Management Bundles</h3>
-          <div class="grid grid--2 reveal">
-            <article class="card">
-              <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px;">
-                <span class="badge badge--blue">2 Platforms Included</span>
-                <span style="font-size: 0.875rem; font-weight: 600; color: var(--text-muted);">Instagram + Facebook</span>
-              </div>
-              <h4 class="card-title">Instagram + Facebook Management</h4>
-              <div class="card-price">₹4,999<span>/month</span></div>
-              <p style="color: var(--text-secondary); margin-bottom: 18px;">
-                Includes full Instagram Management + Facebook Management deliverables synced for cross-platform consistency.
-              </p>
-              <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                <a href="contact.html?service=Instagram%20%2B%20Facebook%20Bundle" class="btn btn--primary btn--sm">Start Growing Your Business</a>
-                <a href="services.html#combined-social" class="btn btn--outline btn--sm">Detailed Deliverables</a>
-              </div>
-            </article>
-
-            <article class="card card--featured">
-              <span class="badge badge--popular">Best Multi-Platform Value</span>
-              <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; margin-top: 6px;">
-                <span class="badge badge--purple">3 Platforms Included</span>
-                <span style="font-size: 0.875rem; font-weight: 600; color: var(--text-muted);">IG + FB + YouTube</span>
-              </div>
-              <h4 class="card-title">Instagram + Facebook + YouTube</h4>
-              <div class="card-price">₹7,999<span>/month</span></div>
-              <p style="color: var(--text-secondary); margin-bottom: 18px;">
-                Includes Instagram, Facebook, and YouTube management deliverables together—covering Reels, Shorts, posts, stories, thumbnails, and channel optimization.
-              </p>
-              <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                <a href="contact.html?service=Instagram%20%2B%20Facebook%20%2B%20YouTube%20Bundle" class="btn btn--primary btn--sm">Start Growing Your Business</a>
-                <a href="services.html#combined-social" class="btn btn--outline btn--sm">Detailed Deliverables</a>
-              </div>
-            </article>
-          </div>
-        </div>
-        </div>
-
-        <!-- Tab 2: Video & Creative Production -->
-        <div id="creative-production" data-home-panel="video" hidden>
-          <div class="grid grid--3">
-          <article class="card">
-            <h3 class="card-title">Reel / Shorts Editing</h3>
-            <div class="card-price">Starting ₹499<span>/video</span></div>
-            <p style="color: var(--text-secondary); margin-bottom: 20px; flex: 1;">Fast-paced vertical edits with clean cuts, captions, sound effects, and retention pacing for Instagram Reels &amp; YouTube Shorts.</p>
-            <a href="contact.html?service=Reel%20%2F%20Shorts%20Editing" class="btn btn--outline btn--sm">Get a Custom Quote</a>
-          </article>
-
-          <article class="card">
-            <h3 class="card-title">Professional Ad Video Editing</h3>
-            <div class="card-price">Starting ₹999<span>/video</span></div>
-            <p style="color: var(--text-secondary); margin-bottom: 20px; flex: 1;">Conversion-focused ad edits with strong opening hooks, motion graphics, offer callouts, and aspect ratios for Meta &amp; YouTube ads.</p>
-            <a href="contact.html?service=Professional%20Ad%20Video%20Editing" class="btn btn--outline btn--sm">Get a Custom Quote</a>
-          </article>
-
-          <article class="card">
-            <h3 class="card-title">AI Advertisement Video</h3>
-            <div class="card-price">Starting ₹1,499<span>/video</span></div>
-            <p style="color: var(--text-secondary); margin-bottom: 20px; flex: 1;">AI-enhanced commercial visuals, product showcases, and creative scenes tailored for attention-grabbing digital campaigns.</p>
-            <a href="contact.html?service=AI%20Advertisement%20Video" class="btn btn--outline btn--sm">Get a Custom Quote</a>
-          </article>
-
-          <article class="card">
-            <h3 class="card-title">UGC Style Ad Video</h3>
-            <div class="card-price">Starting ₹2,499<span>/video</span></div>
-            <p style="color: var(--text-secondary); margin-bottom: 20px; flex: 1;">Native, creator-style promotional videos crafted to feel authentic in social feeds while driving product or service enquiries.</p>
-            <a href="contact.html?service=UGC%20Style%20Ad%20Video" class="btn btn--outline btn--sm">Get a Custom Quote</a>
-          </article>
-
-          <article class="card">
-            <h3 class="card-title">Professional Model-Based Ad</h3>
-            <div class="card-price">Starting ₹4,999<span></span></div>
-            <p style="color: var(--text-secondary); margin-bottom: 20px; flex: 1;">Structured brand &amp; product commercial production featuring on-camera talent, scripting, and full post-production.</p>
-            <a href="contact.html?service=Professional%20Model-Based%20Ad" class="btn btn--outline btn--sm">Get a Custom Quote</a>
-          </article>
-
-          <article class="card">
-            <h3 class="card-title">Promotional Poster / Graphic Design</h3>
-            <div class="card-price">Starting ₹299<span>/design</span></div>
-            <p style="color: var(--text-secondary); margin-bottom: 20px; flex: 1;">High-clarity promotional banners, offer posters, carousels, and ad statics aligned with your brand identity.</p>
-            <a href="contact.html?service=Promotional%20Poster%20%2F%20Graphic%20Design" class="btn btn--outline btn--sm">Get a Custom Quote</a>
-          </article>
-        </div>
-
-        <details class="notice-box notice-box--purple notice-accordion">
-          <summary>
-            <span class="notice-summary-title"><span class="notice-dot" aria-hidden="true"></span>Production &amp; Talent Note</span>
-            <svg class="notice-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </summary>
-          <div class="notice-body">
-            <p class="notice-text">
-              Clients may provide raw footage, product photos, or clips. TezGrowth handles scripting, editing, AI enhancements, text overlays, effects, and final export as per the selected service. <strong>Model fees and physical production costs may be additional.</strong>
+        <div class="section-header reels-header">
+          <div>
+            <span class="eyebrow">Vertical Video Showcase</span>
+            <h2 class="section-title">Ads &amp; Reels We Create</h2>
+            <p class="section-subtitle">
+              Scroll-stopping vertical videos, ad creatives, and AI productions built for retention and enquiries.
             </p>
           </div>
-        </details>
-      </div>
-
-      <!-- Tab 3: Performance Marketing & Meta Ads -->
-      <div id="meta-ads" data-home-panel="ads" hidden>
-        <div class="split-grid">
-          <div>
-            <span class="eyebrow">Performance Marketing</span>
-            <h2 class="section-title">Meta Ads Management</h2>
-            <p class="section-subtitle" style="margin-bottom: 20px;">
-              Reach the right audience across Facebook and Instagram with structured campaign setup, creative testing, and ongoing optimization built for leads and sales.
-            </p>
-            <details class="notice-box notice-box--warning notice-accordion">
-              <summary>
-                <span class="notice-summary-title"><span class="notice-dot" aria-hidden="true"></span>Ad Budget Note (Paid Separately)</span>
-                <svg class="notice-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-              </summary>
-              <div class="notice-body">
-                <p class="notice-text">
-                  <strong>Advertising budget is paid separately by the client and is not included in the management fee.</strong> Ad spend is billed directly to your Meta Ads account.
-                </p>
-              </div>
-            </details>
-            <div style="margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px;">
-              <a href="contact.html?service=Meta%20Ads%20Management" class="btn btn--primary">Get a Free Consultation</a>
-              <a href="services.html#meta-ads-detail" class="btn btn--outline">View Full Ads Scope</a>
-            </div>
-          </div>
-
-        <div class="card card--navy">
-          <span class="badge badge--blue" style="align-self: flex-start; margin-bottom: 14px;">Facebook &amp; Instagram Ads</span>
-          <h3 class="card-title">Meta Ads Management</h3>
-          <div class="card-price">Starting ₹3,999<span>/month</span></div>
-          <ul class="check-list">
-            <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Facebook and Instagram advertising</li>
-            <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Campaign strategy</li>
-            <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Audience research and targeting</li>
-            <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Campaign setup</li>
-            <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Ad creative testing</li>
-            <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Lead generation campaigns</li>
-            <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Performance monitoring</li>
-            <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Campaign optimization</li>
-            <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Monthly performance reporting</li>
-          </ul>
-          <a href="contact.html?service=Meta%20Ads%20Management" class="btn btn--primary btn--block">Start Meta Ads Campaign</a>
-        </div>
-        </div>
-      </div>
-
-      <!-- Tab 4: Website Design & Management -->
-      <div id="web-design" data-home-panel="web" hidden>
-        <div class="grid grid--3" style="margin-bottom: 24px;">
-          <article class="card">
-            <h3 class="card-title">Landing Page</h3>
-            <div class="card-price">Starting ₹3,999<span> one-time</span></div>
-            <p style="color: var(--text-secondary); margin-bottom: 20px; flex: 1;">Focused single-page layout engineered for Meta Ads traffic, lead capture, and WhatsApp conversions.</p>
-            <a href="contact.html?service=Landing%20Page" class="btn btn--outline btn--sm">Get a Custom Quote</a>
-          </article>
-
-          <article class="card">
-            <h3 class="card-title">Basic Business Website</h3>
-            <div class="card-price">Starting ₹9,999<span> one-time</span></div>
-            <p style="color: var(--text-secondary); margin-bottom: 20px; flex: 1;">Professional multi-section business website with responsive layout, service pages, SEO basics, and enquiry forms.</p>
-            <a href="contact.html?service=Basic%20Business%20Website" class="btn btn--primary btn--sm">Get Started</a>
-          </article>
-
-          <article class="card">
-            <h3 class="card-title">Advanced Business Website</h3>
-            <div class="card-price">Starting ₹20,000<span> one-time</span></div>
-            <p style="color: var(--text-secondary); margin-bottom: 20px; flex: 1;">Custom-structured multi-page agency or brand website with rich interactive sections, portfolio/CMS readiness, and full optimization.</p>
-            <a href="contact.html?service=Advanced%20Business%20Website" class="btn btn--outline btn--sm">Get a Custom Quote</a>
-          </article>
-        </div>
-
-        <div class="split-grid">
-          <article class="card">
-            <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px;">
-              <h3 class="card-title" style="margin-bottom: 0;">Website Management</h3>
-              <span class="badge badge--blue">TezGrowth-Built Sites Only</span>
-            </div>
-            <div class="card-price">₹1,999<span>/month</span></div>
-            <ul class="check-list">
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Website content updates</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Image and banner updates</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Service and offer updates</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Contact information updates</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Basic technical maintenance</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Website uptime checks</li>
-              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Basic security and backup maintenance</li>
-            </ul>
-            <a href="contact.html?service=Website%20Management" class="btn btn--primary btn--block">Enquire About Website Management</a>
-          </article>
-
-          <div>
-            <details class="notice-box notice-box--warning notice-accordion" style="margin-top: 0;">
-              <summary>
-                <span class="notice-summary-title"><span class="notice-dot" aria-hidden="true"></span>Website Management Policy (TezGrowth Sites Only)</span>
-                <svg class="notice-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-              </summary>
-              <div class="notice-body">
-                <p class="notice-text" style="margin-bottom: 10px;">
-                  <strong>TezGrowth only provides ongoing website management for websites designed and developed by TezGrowth.</strong> We do not offer ongoing management or maintenance for websites built by third-party agencies or external developers.
-                </p>
-                <p class="notice-text">
-                  <strong>Separate Costs:</strong> Domain registration, hosting renewals, and major redesigns are billed separately and are not included in the ₹1,999/month management plan.
-                </p>
-              </div>
-            </details>
+          <div class="reels-nav-arrows" aria-label="Carousel navigation">
+            <button type="button" class="reels-arrow-btn" data-reels-prev aria-label="Previous reel">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button type="button" class="reels-arrow-btn" data-reels-next aria-label="Next reel">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
           </div>
         </div>
       </div>
+      <div class="reels-carousel-wrap">
+        <div class="reels-track" id="reels-track" role="region" aria-label="Reels carousel"></div>
       </div>
     </section>
 
-    <!-- Section 8: Monthly Marketing Packages -->
+    <!-- Websites We've Built -->
+    <section id="websites-section" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow eyebrow--green">Live Web Work</span>
+          <h2 class="section-title">Websites We've Built</h2>
+          <p class="section-subtitle">Live sites designed and developed by TezGrowth. Tap to visit.</p>
+        </div>
+        <div class="websites-showcase" data-websites-showcase></div>
+      </div>
+    </section>
+
+    <!-- Monthly Marketing Packages -->
     <section id="packages" class="section">
       <div class="container">
         <div class="section-header section-header--center">
@@ -510,6 +260,7 @@
             <div class="card-price">₹9,999<span>/month</span></div>
             <ul class="check-list">
               <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Instagram, Facebook and YouTube management</li>
+              <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Meta Ads management included</li>
               <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>8 reels &bull; 8 graphic posts &bull; 12 stories</li>
               <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Captions, publishing &amp; basic strategy</li>
               <li><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Monthly performance reporting</li>
@@ -555,9 +306,17 @@
           </article>
         </div>
 
-        <!-- Explore All Plans Link -->
-        <div style="margin-top: 28px; text-align: center;">
-          <a href="pricing.html" class="btn btn--outline">Explore All Plans &rarr;</a>
+        <!-- Starting Prices Chip Row + View Full Pricing -->
+        <div class="starting-prices-wrap">
+          <div class="starting-prices-label">Starting prices:</div>
+          <div class="starting-prices-chips">
+            <a href="pricing.html#single-services" class="starting-chip">Reels from ₹499</a>
+            <a href="pricing.html" class="starting-chip">Ad Videos from ₹999</a>
+            <a href="pricing.html" class="starting-chip">AI Ads from ₹1,499</a>
+            <a href="pricing.html" class="starting-chip">Meta Ads from ₹3,999/mo</a>
+            <a href="pricing.html" class="starting-chip">Websites from ₹3,999</a>
+          </div>
+          <a href="pricing.html" class="btn btn--outline">View Full Pricing &rarr;</a>
         </div>
 
         <details class="notice-box notice-accordion" style="margin-top: 20px;">
@@ -571,7 +330,8 @@
               &bull; New website development is separate from monthly management retainers.<br />
               &bull; Model charges and additional production expenses are separate.<br />
               &bull; Physical shooting visits are subject to agreed location and visit limits.<br />
-              &bull; <strong>Monthly deliverables are fixed and unused deliverables do not automatically roll over to the next month.</strong>
+              &bull; <strong>Monthly deliverables are fixed and unused deliverables do not automatically roll over to the next month.</strong><br />
+              &bull; All prices are in INR. No GST charged currently.
             </p>
           </div>
         </details>
@@ -762,6 +522,98 @@
       </div>
     </section>
 
+    <!-- Homepage Quick Consultation Form -->
+    <section id="home-enquiry" class="section section--subtle">
+      <div class="container" style="max-width: 760px;">
+        <div class="section-header section-header--center" style="margin-bottom: 24px;">
+          <span class="eyebrow">Free Consultation</span>
+          <h2 class="section-title">Request a Custom Growth Plan</h2>
+          <p class="section-subtitle">Share your details below and we will reply on WhatsApp or email within 24 hours.</p>
+        </div>
+
+        <div class="form-card">
+          <form data-enquiry-form data-lead-source="home" novalidate>
+            <div class="form-grid">
+              <div class="hp-field" aria-hidden="true">
+                <label for="home-website-hp">Leave this empty</label>
+                <input type="text" id="home-website-hp" name="website_hp" tabindex="-1" autocomplete="off" />
+              </div>
+              <div class="form-grid form-grid--2">
+                <div class="form-group">
+                  <label class="form-label" for="home-name">Name *</label>
+                  <input class="form-control" type="text" id="home-name" name="name" placeholder="Your full name" required />
+                  <span class="form-error" data-error-for="name"></span>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="home-business">Business Name *</label>
+                  <input class="form-control" type="text" id="home-business" name="business" placeholder="Your company or brand" required />
+                  <span class="form-error" data-error-for="business"></span>
+                </div>
+              </div>
+              <div class="form-grid form-grid--2">
+                <div class="form-group">
+                  <label class="form-label" for="home-phone">Phone / WhatsApp *</label>
+                  <input class="form-control" type="tel" id="home-phone" name="phone" placeholder="+91 98765 43210" required />
+                  <span class="form-error" data-error-for="phone"></span>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="home-email">Email *</label>
+                  <input class="form-control" type="email" id="home-email" name="email" placeholder="you@company.com" required />
+                  <span class="form-error" data-error-for="email"></span>
+                </div>
+              </div>
+              <div class="form-grid form-grid--2">
+                <div class="form-group">
+                  <label class="form-label" for="home-service">Required Service *</label>
+                  <select class="form-control" id="home-service" name="service" required>
+                    <option value="">Select a service or package</option>
+                    <option value="SOCIAL STARTER (₹9,999/mo)">SOCIAL STARTER Package (₹9,999/mo)</option>
+                    <option value="BUSINESS GROWTH (₹17,999/mo)">BUSINESS GROWTH Package (₹17,999/mo)</option>
+                    <option value="COMPLETE GROWTH (₹29,999/mo)">COMPLETE GROWTH Package (₹29,999/mo)</option>
+                    <option value="Instagram Management">Instagram Management (₹3,499/mo)</option>
+                    <option value="Facebook Management">Facebook Management (₹2,499/mo)</option>
+                    <option value="YouTube Management">YouTube Management (₹3,499/mo)</option>
+                    <option value="Instagram + Facebook Bundle">Instagram + Facebook (₹4,999/mo)</option>
+                    <option value="Instagram + Facebook + YouTube Bundle">IG + FB + YouTube (₹7,999/mo)</option>
+                    <option value="Reel / Shorts Editing">Reel / Shorts Editing (Starting ₹499/video)</option>
+                    <option value="Professional Ad Video Editing">Professional Ad Video Editing (Starting ₹999/video)</option>
+                    <option value="AI Advertisement Video">AI Advertisement Video (Starting ₹1,499/video)</option>
+                    <option value="UGC Style Ad Video">UGC Style Ad Video (Starting ₹2,499/video)</option>
+                    <option value="Professional Model-Based Ad">Professional Model-Based Ad (Starting ₹4,999)</option>
+                    <option value="Promotional Poster / Graphic Design">Promotional Poster / Graphic Design (Starting ₹299)</option>
+                    <option value="Meta Ads Management">Meta Ads Management (Starting ₹3,999/mo)</option>
+                    <option value="Landing Page">Landing Page (Starting ₹3,999)</option>
+                    <option value="Basic Business Website">Basic Business Website (Starting ₹9,999)</option>
+                    <option value="Advanced Business Website">Advanced Business Website (Starting ₹20,000)</option>
+                    <option value="Website Management">Website Management (₹1,999/mo)</option>
+                  </select>
+                  <span class="form-error" data-error-for="service"></span>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="home-budget">Monthly Budget *</label>
+                  <select class="form-control" id="home-budget" name="budget" required>
+                    <option value="">Select budget range</option>
+                    <option value="Under ₹5,000">Under ₹5,000</option>
+                    <option value="₹5,000 – ₹10,000">₹5,000 – ₹10,000</option>
+                    <option value="₹10,000 – ₹20,000">₹10,000 – ₹20,000</option>
+                    <option value="₹20,000 – ₹35,000">₹20,000 – ₹35,000</option>
+                    <option value="₹35,000+">₹35,000+</option>
+                  </select>
+                  <span class="form-error" data-error-for="budget"></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="home-message">Message</label>
+                <textarea class="form-control" id="home-message" name="message" rows="3" placeholder="Tell us about your business, goals, and timeline..."></textarea>
+              </div>
+              <button type="submit" class="btn btn--gradient btn--block">Get Free Consultation</button>
+              <div class="form-status" data-form-status role="status" aria-live="polite"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- Architectural Footer -->
@@ -780,8 +632,6 @@
           <div class="footer-contact-chips">
             <a href="mailto:hello@tezgrowth.com" class="footer-chip">hello@tezgrowth.com</a>
             <a href="tel:+918630027341" class="footer-chip">+91 86300 27341</a>
-            <a href="https://instagram.com/thetezgrowth" target="_blank" rel="noopener noreferrer" class="footer-chip social-icon-btn--instagram" aria-label="Follow TezGrowth on Instagram (@thetezgrowth)">@thetezgrowth</a>
-            <a href="https://www.youtube.com/@vipugamer" target="_blank" rel="noopener noreferrer" class="footer-chip" aria-label="Visit VipuGamer YouTube Channel">YouTube: VipuGamer</a>
           </div>
         </div>
 
@@ -816,7 +666,7 @@
 
       <div class="footer-bottom">
         <span>&copy; <span data-current-year></span> TezGrowth (TezGrowth.com). All rights reserved.</span>
-        <span>All prices listed in INR.</span>
+        <span>All prices listed in INR. No GST charged currently.</span>
       </div>
     </div>
   </footer>
@@ -836,9 +686,11 @@
     </a>
   </div>
 
-  <script src="js/config.js?v=2"></script>
-  <script src="js/pricing-data.js?v=2"></script>
-  <script src="js/portfolio-data.js?v=2"></script>
-  <script src="js/main.js?v=2"></script>
+  <script src="js/config.js?v=3"></script>
+  <script src="js/pricing-data.js?v=3"></script>
+  <script src="js/portfolio-data.js?v=3"></script>
+  <script src="js/websites-data.js?v=3"></script>
+  <script src="js/reels.js?v=3"></script>
+  <script src="js/main.js?v=3"></script>
 </body>
 </html>

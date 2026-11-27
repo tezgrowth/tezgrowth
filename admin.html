@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel — TezGrowth</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .admin-shell {
+      min-height: 100dvh;
+      padding: 20px 0 64px;
+    }
+    .admin-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      background: rgba(26, 28, 33, 0.92);
+      border: 1px solid var(--border-medium);
+      margin-bottom: 20px;
+    }
+    #admin-user-bar:not([hidden]) {
+      display: flex;
+    }
+    .admin-login-wrap {
+      max-width: 420px;
+      margin: 48px auto;
+    }
+    .admin-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .admin-tab-btn {
+      min-height: 46px;
+      border-radius: 14px;
+      border: 1px solid var(--border-medium);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .admin-tab-btn.is-active {
+      background: var(--brand-gradient);
+      color: #07090b;
+      border-color: transparent;
+    }
+    .admin-toolbar {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    @media (min-width: 640px) {
+      .admin-toolbar {
+        grid-template-columns: 1.4fr 0.8fr auto;
+      }
+    }
+    .admin-list {
+      display: grid;
+      gap: 14px;
+    }
+    .lead-card,
+    .admin-reel-card {
+      padding: 16px;
+      border-radius: 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      display: grid;
+      gap: 12px;
+    }
+    .lead-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .lead-meta {
+      display: grid;
+      gap: 4px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .lead-actions,
+    .reel-admin-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .lead-actions .btn,
+    .reel-admin-actions .btn {
+      min-height: 44px;
+      padding: 8px 12px;
+      font-size: 0.84rem;
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .status-pill--New { background: rgba(31, 91, 255, 0.2); color: #93c5fd; }
+    .status-pill--Contacted { background: rgba(255, 122, 0, 0.2); color: #fdba74; }
+    .status-pill--Closed { background: rgba(12, 242, 123, 0.2); color: #6ee7b7; }
+    .admin-reel-row {
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+    .admin-reel-thumb {
+      width: 76px;
+      height: 120px;
+      border-radius: 12px;
+      background: #0d0e11;
+      border: 1px solid var(--border-medium);
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .admin-reel-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .reel-preview-box {
+      margin-top: 12px;
+      max-width: 240px;
+      aspect-ratio: 9 / 16;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #0d0e11;
+      border: 1px solid var(--border-medium);
+    }
+    .reel-preview-box video,
+    .reel-preview-box iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <main class="admin-shell">
+    <div class="container">
+      <div class="admin-topbar">
+        <a href="index.html" class="brand-logo" aria-label="TezGrowth Home">
+          <img src="assets/tezgrowth-logo.png" alt="TezGrowth Logo" class="brand-logo-img" width="34" height="34" />
+          <span>Tez<span class="brand-wordmark-accent">Growth</span> <small style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">Admin</small></span>
+        </a>
+        <div id="admin-user-bar" hidden style="align-items:center;gap:10px;flex-wrap:wrap;">
+          <span id="admin-user-email" style="font-size:0.85rem;color:var(--text-secondary);"></span>
+          <button type="button" id="admin-logout-btn" class="btn btn--outline btn--sm">Logout</button>
+        </div>
+      </div>
+
+      <!-- Login View -->
+      <section id="admin-login-section" class="admin-login-wrap">
+        <div class="form-card">
+          <h1 style="font-size:1.5rem;font-weight:800;margin-bottom:6px;">Admin Sign In</h1>
+          <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:20px;">
+            Sign in with your Supabase admin email &amp; password.
+          </p>
+          <form id="admin-login-form" class="form-grid" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="admin-email">Email</label>
+              <input class="form-control" type="email" id="admin-email" required autocomplete="email" placeholder="admin@tezgrowth.com" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="admin-password">Password</label>
+              <input class="form-control" type="password" id="admin-password" required autocomplete="current-password" placeholder="••••••••" />
+            </div>
+            <button type="submit" class="btn btn--gradient btn--block" id="admin-login-btn">Sign In</button>
+            <div class="form-status" id="admin-login-status" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Authenticated Dashboard -->
+      <section id="admin-dashboard" hidden>
+        <div class="admin-tabs" role="tablist">
+          <button type="button" class="admin-tab-btn is-active" data-admin-tab="leads" role="tab" aria-selected="true">Leads</button>
+          <button type="button" class="admin-tab-btn" data-admin-tab="reels" role="tab" aria-selected="false">Reels</button>
+        </div>
+
+        <!-- LEADS TAB -->
+        <div data-admin-panel="leads">
+          <div class="admin-toolbar">
+            <input type="search" id="leads-search" class="form-control" placeholder="Search name, business, phone, service..." aria-label="Search leads" />
+            <select id="leads-status-filter" class="form-control" aria-label="Filter by status">
+              <option value="All">All Statuses</option>
+              <option value="New">New</option>
+              <option value="Contacted">Contacted</option>
+              <option value="Closed">Closed</option>
+            </select>
+            <button type="button" id="leads-refresh-btn" class="btn btn--outline">Refresh</button>
+          </div>
+          <div id="leads-status-msg" class="form-status" role="status" aria-live="polite"></div>
+          <div id="leads-list" class="admin-list"></div>
+        </div>
+
+        <!-- REELS TAB -->
+        <div data-admin-panel="reels" hidden>
+          <div class="form-card" style="margin-bottom:24px;">
+            <h2 style="font-size:1.25rem;font-weight:800;margin-bottom:14px;">Add New Reel</h2>
+            <form id="add-reel-form" class="form-grid" novalidate>
+              <div class="form-group">
+                <label class="form-label" for="reel-title">Optional Title</label>
+                <input class="form-control" type="text" id="reel-title" placeholder="e.g. D2C Product Ad Reel" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="reel-url">Paste Link (YouTube Shorts / YouTube / Instagram Reel / Direct .mp4)</label>
+                <input class="form-control" type="url" id="reel-url" placeholder="https://www.youtube.com/shorts/..." />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="reel-file">OR Upload MP4 (Max 45 MB)</label>
+                <input class="form-control" type="file" id="reel-file" accept="video/mp4" />
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:10px;">
+                <button type="button" id="reel-preview-btn" class="btn btn--outline">Preview Before Saving</button>
+                <button type="submit" id="reel-save-btn" class="btn btn--gradient">Save Reel</button>
+              </div>
+              <div id="reel-form-status" class="form-status" role="status" aria-live="polite"></div>
+              <div id="reel-preview-container" hidden></div>
+            </form>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+            <h2 style="font-size:1.25rem;font-weight:800;">All Reels</h2>
+            <button type="button" id="reels-refresh-btn" class="btn btn--outline btn--sm">Refresh</button>
+          </div>
+          <div id="reels-admin-status" class="form-status" role="status" aria-live="polite"></div>
+          <div id="reels-admin-list" class="admin-list"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
