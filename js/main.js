@@ -780,7 +780,7 @@
     });
   }
 
-  /* 10. Maintenance Lock Check (controlled from /admin) */
+  /* 10. Maintenance Lock Check (controlled from /admin, with admin-only preview login) */
   async function initMaintenanceLock() {
     const sb = cfg.supabase;
     if (!sb || !sb.url || !sb.anonKey) return;
@@ -794,6 +794,21 @@
       if (!res.ok) return;
       const rows = await res.json();
       if (!Array.isArray(rows) || !rows.length || !rows[0].maintenance_mode) return;
+
+      // Check if admin already unlocked preview in this browser session
+      const previewToken = sessionStorage.getItem('tez_maint_admin_token');
+      if (previewToken) {
+        try {
+          const userRes = await fetch(`${sb.url}/auth/v1/user`, {
+            headers: {
+              apikey: sb.anonKey,
+              Authorization: `Bearer ${previewToken}`
+            }
+          });
+          if (userRes.ok) return; // Valid admin session -> allow preview
+        } catch (_) {}
+        sessionStorage.removeItem('tez_maint_admin_token');
+      }
 
       const msg = rows[0].maintenance_message || 'We are performing scheduled upgrades and will be back shortly.';
       const lock = document.createElement('div');
@@ -811,15 +826,90 @@
             <a href="${buildWhatsAppUrl()}" target="_blank" rel="noopener noreferrer" class="btn btn--gradient">Chat on WhatsApp</a>
             <a href="tel:+${(cfg.whatsappNumber || '918630027341').replace(/\D/g, '')}" class="btn btn--outline">Call Support</a>
           </div>
+          <div style="margin-top: 22px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08);">
+            <button type="button" id="maint-admin-toggle" class="maint-admin-link">Admin Preview Login</button>
+            <form id="maint-admin-form" class="form-grid" hidden style="margin-top: 12px; text-align: left;">
+              <input class="form-control" type="email" id="maint-email" placeholder="Admin email" required autocomplete="email" />
+              <input class="form-control" type="password" id="maint-password" placeholder="Admin password" required autocomplete="current-password" />
+              <button type="submit" id="maint-login-btn" class="btn btn--primary btn--sm btn--block">Unlock Site Preview</button>
+              <div id="maint-login-status" class="form-status" role="status" aria-live="polite"></div>
+            </form>
+          </div>
         </div>
       `;
       document.body.appendChild(lock);
       document.body.classList.add('no-scroll');
+
+      const toggleBtn = document.getElementById('maint-admin-toggle');
+      const form = document.getElementById('maint-admin-form');
+      const status = document.getElementById('maint-login-status');
+      const loginBtn = document.getElementById('maint-login-btn');
+
+      toggleBtn.addEventListener('click', () => {
+        form.hidden = !form.hidden;
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('maint-email').value.trim();
+        const password = document.getElementById('maint-password').value;
+        status.className = 'form-status';
+        status.textContent = '';
+
+        if (!email || !password) {
+          status.className = 'form-status is-error';
+          status.textContent = 'Enter admin email and password.';
+          return;
+        }
+
+        loginBtn.disabled = true;
+        loginBtn.textContent = 'Verifying...';
+        try {
+          const authRes = await fetch(`${sb.url}/auth/v1/token?grant_type=password`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              apikey: sb.anonKey
+            },
+            body: JSON.stringify({ email, password })
+          });
+          const authData = await authRes.json();
+          if (!authRes.ok || !authData.access_token) {
+            status.className = 'form-status is-error';
+            status.textContent = authData.error_description || authData.msg || 'Invalid admin credentials.';
+            loginBtn.disabled = false;
+            loginBtn.textContent = 'Unlock Site Preview';
+            return;
+          }
+          sessionStorage.setItem('tez_maint_admin_token', authData.access_token);
+          lock.remove();
+          document.body.classList.remove('no-scroll');
+        } catch (_) {
+          status.className = 'form-status is-error';
+          status.textContent = 'Network error. Please try again.';
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'Unlock Site Preview';
+        }
+      });
     } catch (_) {}
+  }
+
+  function initBgVideos() {
+    document.querySelectorAll('.hero-bg-video, .footer-bg-video').forEach((video) => {
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.play().catch(() => {});
+      video.addEventListener('ended', () => {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+      });
+    });
   }
 
   document.addEventListener('DOMContentLoaded', () => {
     initMaintenanceLock();
+    initBgVideos();
     initWhatsAppLinks();
     initScrollProgress();
     initHeaderScroll();
