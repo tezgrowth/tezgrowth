@@ -2654,16 +2654,24 @@ body.is-hero-cta-visible .whatsapp-float {
 .hero-founder-row {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   min-height: 44px;
-  padding: 6px 14px 6px 6px;
+  max-width: 100%;
+  padding: 5px 12px 5px 5px;
   margin-top: 16px;
   border-radius: var(--radius-full);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-light);
   color: var(--text-secondary);
-  font-size: 0.85rem;
+  font-size: clamp(0.74rem, 3.1vw, 0.85rem);
+  white-space: nowrap;
   transition: border-color var(--transition), background var(--transition), transform var(--transition);
+}
+
+.hero-founder-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .hero-founder-row:hover {
@@ -3221,6 +3229,57 @@ body.is-hero-cta-visible .whatsapp-float {
   background: rgba(255, 0, 0, 0.14);
   border-color: rgba(255, 0, 0, 0.35);
   color: #fca5a5;
+}
+
+.footer-icon-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.footer-icon-btn {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #e2e8f0;
+  transition: transform var(--transition), border-color var(--transition), background-color var(--transition), color var(--transition);
+}
+
+.footer-icon-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+}
+
+.footer-icon-btn--call {
+  color: #6ee7b7;
+  border-color: rgba(12, 242, 123, 0.32);
+  background: rgba(12, 242, 123, 0.08);
+}
+
+.footer-icon-btn--wa {
+  color: #0CF27B;
+  border-color: rgba(12, 242, 123, 0.35);
+  background: rgba(12, 242, 123, 0.12);
+}
+
+.footer-icon-btn--ig {
+  background: var(--instagram-gradient);
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.footer-icon-btn--yt {
+  color: #fca5a5;
+  border-color: rgba(255, 0, 0, 0.35);
+  background: rgba(255, 0, 0, 0.14);
 }
 
 .website-card-body {
