@@ -223,9 +223,17 @@
       .slice(0, 2)
       .map((t) => `<span class="website-tag">${escapeHtml(t)}</span>`)
       .join('');
+    let domainLabel = site.url;
+    try {
+      domainLabel = new URL(site.url).hostname.replace(/^www\./, '');
+    } catch (_) {}
     return `
       <article class="website-card">
         <div class="website-card-media">
+          <div class="website-browser-bar" aria-hidden="true">
+            <span class="website-browser-dots"><span></span><span></span><span></span></span>
+            <span class="website-browser-domain">${escapeHtml(domainLabel)}</span>
+          </div>
           <img src="${escapeHtml(site.image)}" alt="${escapeHtml(site.alt || site.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';" />
           <div class="website-card-placeholder" style="display:none;">
             <span>${escapeHtml(site.name)}</span>
@@ -235,7 +243,10 @@
           <div class="website-card-tags">${tagsHtml}</div>
           <h3 class="website-card-title">${escapeHtml(site.name)}</h3>
           <p class="website-card-desc">${escapeHtml(site.description)}</p>
-          <a href="${escapeHtml(site.url)}" target="_blank" rel="noopener noreferrer" class="btn btn--gradient btn--sm btn--block website-visit-btn">Visit Website</a>
+          <a href="${escapeHtml(site.url)}" target="_blank" rel="noopener noreferrer" class="btn btn--gradient btn--sm btn--block website-visit-btn">
+            Visit Website
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
         </div>
       </article>
     `;

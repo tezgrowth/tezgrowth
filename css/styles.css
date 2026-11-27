@@ -494,6 +494,7 @@ textarea {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  min-height: 44px;
   font-weight: 800;
   font-size: 1.2rem;
   letter-spacing: -0.03em;
@@ -2703,34 +2704,42 @@ body.is-hero-cta-visible .whatsapp-float {
 }
 
 .starting-prices-wrap {
-  margin-top: 28px;
-  padding: 20px;
+  margin-top: 24px;
+  padding: 16px 18px;
   border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.035);
   border: 1px solid var(--border-light);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  text-align: center;
+  align-items: stretch;
+  gap: 12px;
 }
 
 .starting-prices-label {
-  font-size: 0.8125rem;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--text-muted);
+  white-space: nowrap;
 }
 
 .starting-prices-chips {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
   gap: 8px;
+  padding-bottom: 2px;
+}
+
+.starting-prices-chips::-webkit-scrollbar {
+  display: none;
 }
 
 .starting-chip {
+  flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -2738,15 +2747,35 @@ body.is-hero-cta-visible .whatsapp-float {
   border-radius: var(--radius-full);
   background: var(--bg-card);
   border: 1px solid var(--border-medium);
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   font-weight: 600;
   color: var(--text-primary);
+  white-space: nowrap;
   transition: border-color var(--transition), transform var(--transition);
 }
 
 .starting-chip:hover {
   border-color: var(--green);
   transform: translateY(-1px);
+}
+
+.starting-prices-cta {
+  flex-shrink: 0;
+  min-height: 44px;
+}
+
+@media (min-width: 992px) {
+  .starting-prices-wrap {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 20px;
+  }
+  .starting-prices-chips {
+    flex: 1;
+    justify-content: flex-start;
+  }
 }
 
 /* Honeypot field (hidden from humans) */
@@ -3106,30 +3135,92 @@ body.is-hero-cta-visible .whatsapp-float {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
-  background: #101216;
+  background: #0d0f14;
   overflow: hidden;
   border-bottom: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+}
+
+.website-browser-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(12, 14, 19, 0.94);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.website-browser-dots {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.website-browser-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.website-browser-dots span:nth-child(1) { background: #ef4444; opacity: 0.85; }
+.website-browser-dots span:nth-child(2) { background: #f59e0b; opacity: 0.85; }
+.website-browser-dots span:nth-child(3) { background: #10b981; opacity: 0.85; }
+
+.website-browser-domain {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .website-card-media img {
   width: 100%;
-  height: 100%;
+  flex: 1;
+  min-height: 0;
   object-fit: cover;
   object-position: top center;
 }
 
 .website-card-placeholder {
   width: 100%;
-  height: 100%;
+  flex: 1;
   display: grid;
   place-items: center;
   padding: 20px;
-  background: linear-gradient(135deg, rgba(31, 91, 255, 0.28) 0%, rgba(12, 242, 123, 0.22) 50%, rgba(255, 122, 0, 0.28) 100%);
+  background:
+    radial-gradient(circle at 20% 25%, rgba(31, 91, 255, 0.32), transparent 55%),
+    radial-gradient(circle at 80% 75%, rgba(255, 122, 0, 0.26), transparent 55%),
+    linear-gradient(135deg, #121620 0%, #171d2a 100%);
   color: #ffffff;
   font-size: 1.35rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   text-align: center;
+}
+
+.footer-chip--call {
+  border-color: rgba(12, 242, 123, 0.35);
+  color: #6ee7b7;
+}
+.footer-chip--wa {
+  background: rgba(12, 242, 123, 0.14);
+  border-color: rgba(12, 242, 123, 0.4);
+  color: #6ee7b7;
+}
+.footer-chip--yt {
+  background: rgba(255, 0, 0, 0.14);
+  border-color: rgba(255, 0, 0, 0.35);
+  color: #fca5a5;
 }
 
 .website-card-body {
