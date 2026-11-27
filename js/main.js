@@ -780,7 +780,46 @@
     });
   }
 
+  /* 10. Maintenance Lock Check (controlled from /admin) */
+  async function initMaintenanceLock() {
+    const sb = cfg.supabase;
+    if (!sb || !sb.url || !sb.anonKey) return;
+    try {
+      const res = await fetch(`${sb.url}/rest/v1/site_settings?id=eq.1&select=maintenance_mode,maintenance_message`, {
+        headers: {
+          apikey: sb.anonKey,
+          Authorization: `Bearer ${sb.anonKey}`
+        }
+      });
+      if (!res.ok) return;
+      const rows = await res.json();
+      if (!Array.isArray(rows) || !rows.length || !rows[0].maintenance_mode) return;
+
+      const msg = rows[0].maintenance_message || 'We are performing scheduled upgrades and will be back shortly.';
+      const lock = document.createElement('div');
+      lock.id = 'tez-maintenance-lock';
+      lock.className = 'maintenance-lock';
+      lock.setAttribute('role', 'dialog');
+      lock.setAttribute('aria-modal', 'true');
+      lock.innerHTML = `
+        <div class="maintenance-card">
+          <div class="maintenance-badge">Site Under Maintenance</div>
+          <img src="assets/tezgrowth-logo.png" alt="TezGrowth" width="52" height="52" style="margin: 0 auto 14px;" />
+          <h1 style="font-size: 1.65rem; font-weight: 800; color: #fff; margin-bottom: 10px;">We'll Be Right Back</h1>
+          <p style="color: var(--text-secondary); margin-bottom: 22px;">${escapeHtml(msg)}</p>
+          <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+            <a href="${buildWhatsAppUrl()}" target="_blank" rel="noopener noreferrer" class="btn btn--gradient">Chat on WhatsApp</a>
+            <a href="tel:+${(cfg.whatsappNumber || '918630027341').replace(/\D/g, '')}" class="btn btn--outline">Call Support</a>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(lock);
+      document.body.classList.add('no-scroll');
+    } catch (_) {}
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
+    initMaintenanceLock();
     initWhatsAppLinks();
     initScrollProgress();
     initHeaderScroll();

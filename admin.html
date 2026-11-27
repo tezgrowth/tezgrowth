@@ -198,6 +198,28 @@
 
       <!-- Authenticated Dashboard -->
       <section id="admin-dashboard" hidden>
+        <!-- Quick Site Controls -->
+        <div class="form-card" style="margin-bottom:18px;padding:16px;">
+          <div style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:12px;">Site Controls</div>
+          <div style="display:grid;grid-template-columns:1fr;gap:10px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,0.03);border:1px solid var(--border-light);">
+              <div>
+                <div style="font-weight:700;color:#fff;font-size:0.95rem;">Reels Section</div>
+                <div id="reels-toggle-desc" style="font-size:0.8rem;color:var(--text-secondary);">Visible on homepage</div>
+              </div>
+              <button type="button" id="toggle-reels-section-btn" class="btn btn--outline btn--sm" style="min-height:44px;min-width:96px;">ON</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,0.03);border:1px solid var(--border-light);">
+              <div>
+                <div style="font-weight:700;color:#fff;font-size:0.95rem;">Website Maintenance Lock</div>
+                <div id="maintenance-toggle-desc" style="font-size:0.8rem;color:var(--text-secondary);">Website is live</div>
+              </div>
+              <button type="button" id="toggle-maintenance-btn" class="btn btn--outline btn--sm" style="min-height:44px;min-width:96px;">OFF</button>
+            </div>
+          </div>
+          <div id="site-controls-status" class="form-status" role="status" aria-live="polite" style="margin-top:8px;"></div>
+        </div>
+
         <div class="admin-tabs" role="tablist">
           <button type="button" class="admin-tab-btn is-active" data-admin-tab="leads" role="tab" aria-selected="true">Leads</button>
           <button type="button" class="admin-tab-btn" data-admin-tab="reels" role="tab" aria-selected="false">Reels</button>

@@ -135,7 +135,40 @@ GRANT SELECT, UPDATE, DELETE ON public.enquiries TO authenticated;
 GRANT SELECT ON public.reels TO anon, authenticated;
 GRANT INSERT, UPDATE, DELETE ON public.reels TO authenticated;
 
--- 4. SEED DEMO REEL (only if reels table is currently empty)
+-- 4. SITE SETTINGS TABLE (Reels Section On/Off + Website Maintenance Lock)
+CREATE TABLE IF NOT EXISTS public.site_settings (
+  id integer PRIMARY KEY DEFAULT 1 CHECK (id = 1),
+  reels_enabled boolean NOT NULL DEFAULT true,
+  maintenance_mode boolean NOT NULL DEFAULT false,
+  maintenance_message text DEFAULT 'We are performing scheduled upgrades and will be back shortly.',
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+
+ALTER TABLE public.site_settings ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Public can read site settings" ON public.site_settings;
+CREATE POLICY "Public can read site settings"
+  ON public.site_settings
+  FOR SELECT
+  TO anon, authenticated
+  USING (true);
+
+DROP POLICY IF EXISTS "Admin can update site settings" ON public.site_settings;
+CREATE POLICY "Admin can update site settings"
+  ON public.site_settings
+  FOR ALL
+  TO authenticated
+  USING (auth.role() = 'authenticated')
+  WITH CHECK (auth.role() = 'authenticated');
+
+GRANT SELECT ON public.site_settings TO anon, authenticated;
+GRANT INSERT, UPDATE ON public.site_settings TO authenticated;
+
+INSERT INTO public.site_settings (id, reels_enabled, maintenance_mode)
+VALUES (1, true, false)
+ON CONFLICT (id) DO NOTHING;
+
+-- 5. SEED DEMO REEL (only if reels table is currently empty)
 INSERT INTO public.reels (title, source_type, url, poster_url, sort_order, is_active)
 SELECT
   'TezGrowth Demo Reel',

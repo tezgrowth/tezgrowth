@@ -103,6 +103,7 @@
       userBar.hidden = !authed;
       if (authed) {
         userEmail.textContent = session.user.email || 'Admin';
+        loadSiteSettings();
         loadLeads();
         loadReels();
       }
@@ -147,6 +148,84 @@
     logoutBtn.addEventListener('click', async () => {
       await supabase.auth.signOut();
       setAuthenticated(null);
+    });
+
+    /* ── SITE CONTROLS (Reels On/Off + Maintenance Lock) ─────────────────── */
+    let siteSettings = { reels_enabled: true, maintenance_mode: false };
+    const reelsToggleBtn = document.getElementById('toggle-reels-section-btn');
+    const reelsToggleDesc = document.getElementById('reels-toggle-desc');
+    const maintToggleBtn = document.getElementById('toggle-maintenance-btn');
+    const maintToggleDesc = document.getElementById('maintenance-toggle-desc');
+    const siteCtrlStatus = document.getElementById('site-controls-status');
+
+    function renderSiteSettings() {
+      const reelsOn = siteSettings.reels_enabled !== false;
+      reelsToggleBtn.textContent = reelsOn ? 'ON' : 'OFF';
+      reelsToggleBtn.style.background = reelsOn ? 'rgba(12, 242, 123, 0.16)' : 'rgba(248, 113, 113, 0.14)';
+      reelsToggleBtn.style.borderColor = reelsOn ? 'rgba(12, 242, 123, 0.5)' : 'rgba(248, 113, 113, 0.45)';
+      reelsToggleBtn.style.color = reelsOn ? '#6ee7b7' : '#fca5a5';
+      reelsToggleDesc.textContent = reelsOn ? 'Visible on homepage' : 'Hidden on homepage';
+
+      const maintOn = Boolean(siteSettings.maintenance_mode);
+      maintToggleBtn.textContent = maintOn ? 'LOCKED' : 'OFF';
+      maintToggleBtn.style.background = maintOn ? 'rgba(255, 122, 0, 0.22)' : 'rgba(255, 255, 255, 0.04)';
+      maintToggleBtn.style.borderColor = maintOn ? 'rgba(255, 122, 0, 0.6)' : 'var(--border-medium)';
+      maintToggleBtn.style.color = maintOn ? '#fdba74' : 'var(--text-secondary)';
+      maintToggleDesc.textContent = maintOn ? 'Public site is locked (Maintenance Mode)' : 'Website is live';
+    }
+
+    async function loadSiteSettings() {
+      const { data, error } = await supabase
+        .from('site_settings')
+        .select('*')
+        .eq('id', 1)
+        .maybeSingle();
+      if (error) {
+        siteCtrlStatus.className = 'form-status is-error';
+        siteCtrlStatus.textContent = `Site controls unavailable: run updated SQL migration (${error.message})`;
+        return;
+      }
+      if (data) siteSettings = data;
+      siteCtrlStatus.textContent = '';
+      renderSiteSettings();
+    }
+
+    async function saveSiteSettings(patch) {
+      siteCtrlStatus.className = 'form-status';
+      siteCtrlStatus.textContent = 'Saving...';
+      const next = {
+        id: 1,
+        reels_enabled: patch.reels_enabled !== undefined ? patch.reels_enabled : siteSettings.reels_enabled,
+        maintenance_mode: patch.maintenance_mode !== undefined ? patch.maintenance_mode : siteSettings.maintenance_mode,
+        updated_at: new Date().toISOString()
+      };
+      const { data, error } = await supabase
+        .from('site_settings')
+        .upsert(next, { onConflict: 'id' })
+        .select()
+        .single();
+      if (error) {
+        siteCtrlStatus.className = 'form-status is-error';
+        siteCtrlStatus.textContent = `Update failed: ${error.message}`;
+        return;
+      }
+      siteSettings = data;
+      siteCtrlStatus.className = 'form-status is-success';
+      siteCtrlStatus.textContent = 'Saved!';
+      renderSiteSettings();
+    }
+
+    reelsToggleBtn.addEventListener('click', () => {
+      const nextVal = !(siteSettings.reels_enabled !== false);
+      saveSiteSettings({ reels_enabled: nextVal });
+    });
+
+    maintToggleBtn.addEventListener('click', () => {
+      const nextVal = !Boolean(siteSettings.maintenance_mode);
+      if (nextVal && !window.confirm('Lock the public website with Maintenance Mode? Visitors will see the maintenance screen (/admin remains accessible).')) {
+        return;
+      }
+      saveSiteSettings({ maintenance_mode: nextVal });
     });
 
     // Tabs

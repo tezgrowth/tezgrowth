@@ -65,6 +65,27 @@
   }
 
   /* ── Fetch Active Reels from Supabase ───────────────────────────────────── */
+  async function isReelsSectionEnabled() {
+    const sb = cfg.supabase;
+    if (!sb || !sb.url || !sb.anonKey) return true;
+    try {
+      const res = await fetch(`${sb.url}/rest/v1/site_settings?id=eq.1&select=reels_enabled`, {
+        headers: {
+          apikey: sb.anonKey,
+          Authorization: `Bearer ${sb.anonKey}`
+        }
+      });
+      if (!res.ok) return true;
+      const rows = await res.json();
+      if (Array.isArray(rows) && rows.length > 0 && rows[0].reels_enabled === false) {
+        return false;
+      }
+      return true;
+    } catch (_) {
+      return true;
+    }
+  }
+
   async function fetchActiveReels() {
     const sb = cfg.supabase;
     if (!sb || !sb.url || !sb.anonKey) return [DEMO_REEL];
@@ -94,6 +115,12 @@
     const section = document.getElementById('reels-section');
     const track = document.getElementById('reels-track');
     if (!section || !track) return;
+
+    const enabled = await isReelsSectionEnabled();
+    if (!enabled) {
+      section.hidden = true;
+      return;
+    }
 
     const reels = await fetchActiveReels();
     if (!reels.length) {
